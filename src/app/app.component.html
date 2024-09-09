@@ -1,0 +1,18 @@
+
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav mode="side" opened class="sidenav">
+      <img src="assets/caretrack.webp" class="logo">
+      <mat-nav-list *ngFor="let feature of features$ | async">
+        <a mat-list-item (click)="navigateToFeature(feature)">
+          <span style="font-size: 15px;">{{ feature }}</span>
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>

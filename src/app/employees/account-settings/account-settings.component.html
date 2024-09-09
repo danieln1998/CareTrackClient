@@ -1,0 +1,55 @@
+<div class="container-sm">
+    <h1 class="mt-5 mb-3">Account Settings</h1>
+
+    
+    <form [formGroup]="passwordForm" (ngSubmit)="updatePassword()">
+        <h2 class="mb-3">Update Password</h2>
+        <div class="row mb-3">
+            <div class="col">
+                <label class="form-label">Current Password:</label>
+                <input class="form-control" type="password" formControlName="currentPassword">
+                <small class="text-danger" *ngIf="passwordForm.get('currentPassword')?.invalid && passwordForm.get('currentPassword')?.touched">
+                    Current password is required.
+                </small>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label class="form-label">New Password:</label>
+                <input class="form-control" type="password" formControlName="newPassword">
+                <small class="text-danger" *ngIf="passwordForm.get('newPassword')?.errors && passwordForm.get('newPassword')?.touched">
+                    <ng-container *ngIf="passwordForm.get('newPassword')?.errors?.['required']">New password is required.</ng-container>
+                    <ng-container *ngIf="passwordForm.get('newPassword')?.errors?.['requireDigit']">Password must contain a digit.</ng-container>
+                    <ng-container *ngIf="passwordForm.get('newPassword')?.errors?.['requireLowercase']">Password must contain a lowercase letter.</ng-container>
+                    <ng-container *ngIf="passwordForm.get('newPassword')?.errors?.['requireUppercase']">Password must contain an uppercase letter.</ng-container>
+                    <ng-container *ngIf="passwordForm.get('newPassword')?.errors?.['requireNonAlphanumeric']">Password must contain a special character.</ng-container>
+                    <ng-container *ngIf="passwordForm.get('newPassword')?.errors?.['requiredLength']">Password must be at least 6 characters long.</ng-container>
+                    <ng-container *ngIf="passwordForm.get('newPassword')?.errors?.['requiredUniqueChars']">Password must contain at least 1 unique character.</ng-container>
+                </small>
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit" [disabled]="passwordForm.invalid">Update Password</button>
+    </form>
+
+    
+    <form [formGroup]="usernameForm" (ngSubmit)="updateUsername()" class="mt-5">
+        <h2 class="mb-3">Update Username</h2>
+        <div class="row mb-3">
+            <div class="col">
+                <label class="form-label">New Username (Email):</label>
+                <input class="form-control" type="email" formControlName="userName" placeholder="user@example.com">
+                <small class="text-danger" *ngIf="usernameForm.get('userName')?.invalid && usernameForm.get('userName')?.touched">
+                    Valid email is required.
+                </small>
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit" [disabled]="usernameForm.invalid">Update Username</button>
+    </form>
+
+    <br>
+    <div>
+        <small class="text-danger">
+            {{errorMessage$|async}}
+        </small>
+    </div>
+</div>

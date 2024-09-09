@@ -1,0 +1,109 @@
+<div class="container">
+  <h1>{{ isUserView ? 'My Shifts' : 'All Shifts' }}</h1>
+  <div>
+    <small class="text-danger">
+      {{errorMessage$|async}}
+    </small>
+  </div>
+  <button *ngIf="!isUserView" class="btn btn-primary mb-3" [routerLink]="['/shiftAdd']">Add Shift</button>
+
+  <table mat-table [dataSource]="groupedShiftDates" class="mat-elevation-z8">
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef (click)="sortShifts()">
+        Date
+        <span class="sort-icon">{{ isAscending ? '▲' : '▼' }}</span>
+      </th>
+      <td mat-cell *matCellDef="let date">{{date | date:'fullDate'}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="shiftCount">
+      <th mat-header-cell *matHeaderCellDef>Number of Shifts</th>
+      <td mat-cell *matCellDef="let date">{{groupedShifts.get(date)?.length}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let date">
+        <button class="btn btn-sm btn-secondary mx-1" (click)="selectDate(date)">Show Shifts</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['date', 'shiftCount', 'actions']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['date', 'shiftCount', 'actions'];"></tr>
+  </table>
+  <br>
+  <div class="mt-4 d-flex justify-content-between align-items-start">
+    <div>
+      <button class="btn btn-secondary me-2" [disabled]="pageNumber === 1" (click)="previousPage()">Previous</button>
+      <button class="btn btn-secondary" [disabled]="!(hasMoreShifts$ | async)" (click)="nextPage()">Next</button>
+    </div>
+    <div class="d-flex flex-column align-items-end">
+      <select id="pageSize" class="form-select mb-2" [(ngModel)]="pageSize" (change)="changePageSize(pageSize)">
+        <option *ngFor="let size of pageSizeOptions" [value]="size">{{ size }}</option>
+      </select>
+      <label for="pageSize">Shifts per page</label>
+    </div>
+  </div>
+
+  <br>
+  <div>
+    <h2>Filter by Date</h2>
+    <input type="date" (change)="onDateInputChange($event)" [value]="selectedDate || ''" class="form-control mb-3">
+    <button class="btn btn-secondary mb-3" (click)="clearDateFilter()">Clear Filter</button>
+  </div>
+
+  <div *ngIf="selectedDate" class="mt-4">
+    <h2>Shifts for {{ selectedDate | date:'fullDate' }}</h2>
+    <div *ngIf="groupedShifts.get(selectedDate) && groupedShifts.get(selectedDate)!.length > 0; else noShifts">
+      <table mat-table [dataSource]="groupedShifts.get(selectedDate)!" class="mat-elevation-z8">
+        <ng-container matColumnDef="startTime">
+          <th mat-header-cell *matHeaderCellDef>Start Time</th>
+          <td mat-cell *matCellDef="let shift">{{shift.startTime | date:'HH:mm'}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="endTime">
+          <th mat-header-cell *matHeaderCellDef>End Time</th>
+          <td mat-cell *matCellDef="let shift">{{shift.endTime | date:'HH:mm'}}</td>
+        </ng-container>
+        
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let shift">
+            <button *ngIf="!isUserView" class="btn btn-sm btn-secondary mx-1" [routerLink]="['/shiftEdit', shift.id]">Edit</button>
+            <button *ngIf="!isUserView" class="btn btn-sm btn-info mx-1" [routerLink]="['/shiftEmployees', shift.id]">Shift Employees</button>
+            <button *ngIf="!isUserView" class="btn btn-sm btn-danger mx-1" (click)="deleteShift(shift.id)">Delete</button>
+            <ng-container *ngIf="isUserView">
+              <button *ngIf="selectedShiftId !== shift.id" class="btn btn-sm btn-primary mx-1" (click)="onActionsOnShift(shift.id!)">Shift Details</button>
+              <ng-container *ngIf="selectedShiftId === shift.id">
+                <ng-container *ngIf="(employeeShift$ | async) as employeeShift; else noEmployeeShift">
+                  <div *ngIf="employeeShift.startTime">
+                    Entry: {{employeeShift.startTime | date:'HH:mm'}}
+                  </div>
+                  <div *ngIf="employeeShift.endTime && !isDefaultEndTime(employeeShift.endTime)">
+                    Exit: {{employeeShift.endTime | date:'HH:mm'}}
+                  </div>
+                  <button *ngIf="!employeeShift.startTime" class="btn btn-sm btn-success mx-1" 
+                    (click)="enterShift()">Enter Shift</button>
+                  <button *ngIf="employeeShift.startTime && (!employeeShift.endTime || isDefaultEndTime(employeeShift.endTime))" 
+                    class="btn btn-sm btn-warning mx-1" 
+                    (click)="exitShift()">Exit Shift</button>
+                </ng-container>
+                <ng-template #noEmployeeShift>
+                  <button class="btn btn-sm btn-success mx-1" 
+                    (click)="enterShift()">Enter Shift</button>
+                </ng-template>
+              </ng-container>
+            </ng-container>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['startTime', 'endTime', 'actions']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['startTime', 'endTime', 'actions'];"></tr>
+      </table>
+    </div>
+    <ng-template #noShifts>
+      <p>No shifts for this date.</p>
+    </ng-template>
+  </div>
+</div>

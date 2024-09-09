@@ -1,0 +1,40 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { EmployeeListComponent } from './employees/employee-list/employee-list.component';
+import { LoginComponent } from './authentication/login/login.component';
+import { AuthGuard } from './authentication/auth.guard';
+import { DashboardComponent } from './employees/dashboard/dashboard.component';
+import { environment } from 'src/environments/environment';
+import { RegisterUserFormComponent } from './employees/register-user-form/register-user-form.component';
+import { EmployeeFormComponent } from './employees/employee-form/employee-form.component';
+import { AccountSettingsComponent } from './employees/account-settings/account-settings.component';
+import { ShiftFormComponent } from './shifts/shift-form/shift-form.component';
+import { ShiftAssignmentFormComponent } from './shifts/shift-assignment-form/shift-assignment-form.component';
+import { ShiftListComponent } from './shifts/shift-list/shift-list.component';
+import { ShiftEmployeesComponent } from './shifts/shift-employees/shift-employees.component';
+
+const routes: Routes = [
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  {path:"login",component:LoginComponent},
+  {path:"employeeList",component:EmployeeListComponent,canActivate: [AuthGuard], data: { requiredRole: environment.superAdmin}},
+  {path:"dashboard",component:DashboardComponent,canActivate: [AuthGuard],data: { requiredRole: environment.user}},
+  {path:"registerUser",component:RegisterUserFormComponent,canActivate: [AuthGuard],data: { requiredRole: environment.superAdmin}},
+  {path:"employeeEdit/:id",component:EmployeeFormComponent,canActivate: [AuthGuard],data: { requiredRole: environment.superAdmin}},
+  {path:"employeeAdd/:userId",component:EmployeeFormComponent,canActivate: [AuthGuard],data: { requiredRole: environment.superAdmin}},
+  {path:"updateUserRole/:userId",component:RegisterUserFormComponent,canActivate: [AuthGuard],data: { requiredRole: environment.superAdmin}},
+  {path:"accountSettings",component:AccountSettingsComponent,canActivate: [AuthGuard],data: { requiredRole: environment.user}},
+  {path:"shiftAdd",component:ShiftFormComponent,canActivate: [AuthGuard],data: { requiredRole: environment.admin}},
+  {path:"shiftEdit/:id",component:ShiftFormComponent,canActivate: [AuthGuard],data: { requiredRole: environment.admin}},
+  {path:"shiftAssignmentAdd/:shiftId",component:ShiftAssignmentFormComponent,canActivate: [AuthGuard],data: { requiredRole: environment.admin}},
+  {path:"shiftList",component:ShiftListComponent,canActivate: [AuthGuard],data: { requiredRole: environment.admin}},
+  {path:"shiftEmployees/:shiftId",component:ShiftEmployeesComponent,canActivate: [AuthGuard],data: { requiredRole: environment.admin}},
+  {path:"shiftAssignmentEdit/:shiftId",component:ShiftAssignmentFormComponent,canActivate: [AuthGuard],data: { requiredRole: environment.admin}},
+  {path:"shifts", component: ShiftListComponent, canActivate: [AuthGuard], data: { requiredRole: environment.user}}
+
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }

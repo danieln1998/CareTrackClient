@@ -1,0 +1,17 @@
+
+
+<div class="container">
+  <div class="content">
+    <div fxLayout="row wrap" fxLayoutGap="16px grid">
+      <div fxFlex="25%" fxFlex.xs="100%"  fxFlex.sm="33%" *ngFor="let feature of features$|async">
+        <a (click)="navigateToFeature(feature)" class="no-decoration-link">
+        <mat-card class="mat-elevation-z4">
+          <mat-card-content>
+            <mat-card-title class="text-center">{{ feature }}</mat-card-title>
+          </mat-card-content>
+        </mat-card>
+      </a>
+      </div>
+    </div>
+    </div>  
+  </div>

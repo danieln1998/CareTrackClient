@@ -1,0 +1,30 @@
+.sidenav-container {
+    height: 100vh;
+   
+  }
+  
+  .sidenav {
+    background-color: #dee0e0;
+    width: 200px;
+    border-radius: 15px;
+    
+  }
+  
+  mat-sidenav-content {
+    padding: 16px;
+  }
+  
+  button {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+  }
+
+.logo {
+    width: 100%;
+    max-width: 600px;
+    height: 15%;
+    border-radius: 10px;
+  }
+
+  

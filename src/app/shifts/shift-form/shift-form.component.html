@@ -1,0 +1,29 @@
+<div class="container-sm">
+    <h3 class="mt-5 mb-3">Shift Details</h3>
+        <form [formGroup]="shiftForm" (ngSubmit)="onSubmit()">
+        <div class="row mb-3">
+            <div class="col">
+                <label class="form-label">Start Time:</label>
+                <input class="form-control" type="datetime-local" formControlName="startTime">
+            <small class="text-danger" *ngIf="shiftForm.get('startTime')?.invalid && shiftForm.get('startTime')?.touched">
+                Start time is required.
+            </small>
+            </div>
+            <div class="col">
+                <label class="form-label">End Time:</label>
+                <input class="form-control" type="datetime-local" formControlName="endTime">
+                <small class="text-danger" *ngIf="shiftForm.get('endTime')?.invalid && shiftForm.get('endTime')?.touched">
+                End time is required.
+                </small>
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit" [disabled]="shiftForm.invalid">Submit</button>
+      </form>
+
+      <div>
+        <small class="text-danger">
+        {{errorMessage$|async}}
+        </small>
+     </div>
+
+</div>

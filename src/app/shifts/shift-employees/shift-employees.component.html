@@ -1,0 +1,36 @@
+<div class="container">
+  <h2>Shift Employees</h2>
+
+  <div class="mb-3">
+    <button class="btn btn-primary" [routerLink]="['/shiftAssignmentEdit', shiftId]">
+      Edit Shift Assignments
+    </button>
+  </div>
+  <table mat-table [dataSource]="shiftAssignments$" class="mat-elevation-z8">
+    <ng-container matColumnDef="employeeName">
+      <th mat-header-cell *matHeaderCellDef> Employee Name </th>
+      <td mat-cell *matCellDef="let assignment"> {{assignment.employee.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> Missing / Tardiness </th>
+      <td mat-cell *matCellDef="let assignment"> {{assignment.status}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="shiftTimes">
+      <th mat-header-cell *matHeaderCellDef> Entry / Exit Time </th>
+      <td mat-cell *matCellDef="let assignment">
+        {{ getShiftTimes(assignment.employee.id) | async }} 
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <div>
+    <small class="text-danger">
+      {{errorMessage$|async}}
+    </small>
+  </div>
+</div>
