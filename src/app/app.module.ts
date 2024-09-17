@@ -37,7 +37,10 @@ import { ShiftEffects } from './shifts/shift.effects';
 import { ShiftAssignmentFormComponent } from './shifts/shift-assignment-form/shift-assignment-form.component';
 import { ShiftListComponent } from './shifts/shift-list/shift-list.component';
 import { ShiftEmployeesComponent } from './shifts/shift-employees/shift-employees.component';
-
+import { RoomListComponent } from './rooms/room-list/room-list.component';
+import { RoomFormComponent } from './rooms/room-form/room-form.component';
+import { RoomReducer } from './rooms/room.reducer';
+import { RoomEffects } from './rooms/room.effects';
 
 
 @NgModule({
@@ -52,13 +55,16 @@ import { ShiftEmployeesComponent } from './shifts/shift-employees/shift-employee
     ShiftFormComponent,
     ShiftAssignmentFormComponent,
     ShiftListComponent,
-    ShiftEmployeesComponent
+    ShiftEmployeesComponent,
+    RoomListComponent,
+    RoomFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot<AppState>({employee: EmployeeReducer, authentication: AuthenticationReducer,general:GeneralReducer,shift:ShiftReducer}),
-    EffectsModule.forRoot([EmployeeEffects,AuthenticationEffects,ShiftEffects]),
+    StoreModule.forRoot<AppState>({employee: EmployeeReducer, authentication: AuthenticationReducer,
+      general:GeneralReducer,shift:ShiftReducer,room:RoomReducer}),
+    EffectsModule.forRoot([EmployeeEffects,AuthenticationEffects,ShiftEffects,RoomEffects]),
     StoreDevtoolsModule.instrument(),
     BrowserAnimationsModule,
     MatTableModule,

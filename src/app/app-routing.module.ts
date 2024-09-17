@@ -12,6 +12,8 @@ import { ShiftFormComponent } from './shifts/shift-form/shift-form.component';
 import { ShiftAssignmentFormComponent } from './shifts/shift-assignment-form/shift-assignment-form.component';
 import { ShiftListComponent } from './shifts/shift-list/shift-list.component';
 import { ShiftEmployeesComponent } from './shifts/shift-employees/shift-employees.component';
+import { RoomListComponent } from './rooms/room-list/room-list.component';
+import { RoomFormComponent } from './rooms/room-form/room-form.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -29,7 +31,10 @@ const routes: Routes = [
   {path:"shiftList",component:ShiftListComponent,canActivate: [AuthGuard],data: { requiredRole: environment.admin}},
   {path:"shiftEmployees/:shiftId",component:ShiftEmployeesComponent,canActivate: [AuthGuard],data: { requiredRole: environment.admin}},
   {path:"shiftAssignmentEdit/:shiftId",component:ShiftAssignmentFormComponent,canActivate: [AuthGuard],data: { requiredRole: environment.admin}},
-  {path:"shifts", component: ShiftListComponent, canActivate: [AuthGuard], data: { requiredRole: environment.user}}
+  {path:"shifts", component: ShiftListComponent, canActivate: [AuthGuard], data: { requiredRole: environment.user}},
+  { path: "roomList", component: RoomListComponent, canActivate: [AuthGuard], data: { requiredRole: environment.user } },
+  { path: "roomAdd", component: RoomFormComponent, canActivate: [AuthGuard], data: { requiredRole: environment.superAdmin } },
+  { path: "roomEdit/:id", component: RoomFormComponent, canActivate: [AuthGuard], data: { requiredRole: environment.superAdmin } }
 
 ];
 
