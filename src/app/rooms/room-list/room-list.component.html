@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-sm">
     <h1>Rooms</h1>
     <div>
       <small class="text-danger">
@@ -24,7 +24,7 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>Actions</th>
         <td mat-cell *matCellDef="let room">
-          <button class="btn btn-sm btn-secondary mx-1" [routerLink]="['/patients', room.id]">Patients</button>
+          <button class="btn btn-sm btn-secondary mx-1" [routerLink]="['/patientList', room.id]">Patients</button>
           <ng-container *ngIf="isSuperAdmin">
             <button class="btn btn-sm btn-secondary mx-1" [routerLink]="['/roomEdit', room.id]">Edit</button>
             <button class="btn btn-sm btn-danger mx-1" (click)="deleteRoom(room.id)">Delete</button>

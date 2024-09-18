@@ -1,0 +1,65 @@
+<div class="container-sm">
+    <h3 class="mt-5 mb-3">{{ isEditMode ? 'Edit' : 'Add' }} Patient</h3>
+  
+    <form [formGroup]="patientForm" (ngSubmit)="onSubmit()">
+      <div class="row mb-3">
+        <div class="col">
+          <label for="identificationNumber" class="form-label">Identification Number:</label>
+          <input id="identificationNumber" class="form-control" type="text" formControlName="identificationNumber">
+          <small class="text-danger" *ngIf="patientForm.get('identificationNumber')?.invalid && patientForm.get('identificationNumber')?.touched">
+            Identification number is required.
+          </small>
+        </div>
+      </div>
+  
+      <div class="row mb-3">
+        <div class="col">
+          <label for="name" class="form-label">Name:</label>
+          <input id="name" class="form-control" type="text" formControlName="name">
+          <small class="text-danger" *ngIf="patientForm.get('name')?.invalid && patientForm.get('name')?.touched">
+            Name is required.
+          </small>
+        </div>
+      </div>
+  
+      <div class="row mb-3">
+        <div class="col">
+          <label for="roomId" class="form-label">Room Number:</label>
+          <select id="roomId" class="form-select" formControlName="roomId">
+            <option value="">Select a room</option>
+            <option *ngFor="let room of rooms$ | async" [value]="room.id">
+              Room {{ room.roomNumber }}
+            </option>
+          </select>
+          <small class="text-danger" *ngIf="patientForm.get('roomId')?.invalid && patientForm.get('roomId')?.touched">
+            Room selection is required.
+          </small>
+        </div>
+      </div>
+      
+      <div class="row mb-3">
+        <div class="col">
+          <label for="deviceId" class="form-label">Device Number:</label>
+          <select id="deviceId" class="form-select" formControlName="deviceId">
+            <option value="">Select a device</option>
+            <option *ngFor="let device of availableDevices$ | async" [value]="device.id">
+              Device {{ device.deviceNumber }}
+            </option>
+          </select>
+          <small class="text-danger" *ngIf="patientForm.get('deviceId')?.invalid && patientForm.get('deviceId')?.touched">
+            Device selection is required.
+          </small>
+        </div>
+      </div>
+  
+      <button class="btn btn-primary" type="submit" [disabled]="patientForm.invalid">
+        {{ isEditMode ? 'Update' : 'Add' }} Patient
+      </button>
+    </form>
+    
+    <div class="mt-3">
+      <small class="text-danger">
+        {{errorMessage$ | async}}
+      </small>
+    </div>
+  </div>

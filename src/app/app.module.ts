@@ -41,7 +41,12 @@ import { RoomListComponent } from './rooms/room-list/room-list.component';
 import { RoomFormComponent } from './rooms/room-form/room-form.component';
 import { RoomReducer } from './rooms/room.reducer';
 import { RoomEffects } from './rooms/room.effects';
-
+import { PatientReducer } from './patients/patient.reducer';
+import { PatientEffects } from './patients/patient.effects';
+import { PatientListComponent } from './patients/patient-list/patient-list.component';
+import { PatientFormComponent } from './patients/patient-form/patient-form.component';
+import { DeviceReducer } from './devices/device.reducer';
+import { DeviceEffects } from './devices/device.effects'
 
 @NgModule({
   declarations: [
@@ -57,14 +62,16 @@ import { RoomEffects } from './rooms/room.effects';
     ShiftListComponent,
     ShiftEmployeesComponent,
     RoomListComponent,
-    RoomFormComponent
+    RoomFormComponent,
+    PatientListComponent,
+    PatientFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     StoreModule.forRoot<AppState>({employee: EmployeeReducer, authentication: AuthenticationReducer,
-      general:GeneralReducer,shift:ShiftReducer,room:RoomReducer}),
-    EffectsModule.forRoot([EmployeeEffects,AuthenticationEffects,ShiftEffects,RoomEffects]),
+      general:GeneralReducer,shift:ShiftReducer,room:RoomReducer,patient: PatientReducer,device: DeviceReducer}),
+    EffectsModule.forRoot([EmployeeEffects,AuthenticationEffects,ShiftEffects,RoomEffects,PatientEffects,DeviceEffects]),
     StoreDevtoolsModule.instrument(),
     BrowserAnimationsModule,
     MatTableModule,

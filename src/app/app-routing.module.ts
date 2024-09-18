@@ -14,6 +14,8 @@ import { ShiftListComponent } from './shifts/shift-list/shift-list.component';
 import { ShiftEmployeesComponent } from './shifts/shift-employees/shift-employees.component';
 import { RoomListComponent } from './rooms/room-list/room-list.component';
 import { RoomFormComponent } from './rooms/room-form/room-form.component';
+import { PatientListComponent } from './patients/patient-list/patient-list.component';
+import { PatientFormComponent } from './patients/patient-form/patient-form.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -34,7 +36,11 @@ const routes: Routes = [
   {path:"shifts", component: ShiftListComponent, canActivate: [AuthGuard], data: { requiredRole: environment.user}},
   { path: "roomList", component: RoomListComponent, canActivate: [AuthGuard], data: { requiredRole: environment.user } },
   { path: "roomAdd", component: RoomFormComponent, canActivate: [AuthGuard], data: { requiredRole: environment.superAdmin } },
-  { path: "roomEdit/:id", component: RoomFormComponent, canActivate: [AuthGuard], data: { requiredRole: environment.superAdmin } }
+  { path: "roomEdit/:id", component: RoomFormComponent, canActivate: [AuthGuard], data: { requiredRole: environment.superAdmin } },
+  { path: "patientList", component: PatientListComponent, canActivate: [AuthGuard], data: { requiredRole: environment.user } },
+  { path: "patientList/:roomId", component: PatientListComponent, canActivate: [AuthGuard], data: { requiredRole: environment.user } },
+  { path: "patientAdd", component: PatientFormComponent, canActivate: [AuthGuard], data: { requiredRole: environment.superAdmin } },
+  { path: "patientEdit/:id", component: PatientFormComponent, canActivate: [AuthGuard], data: { requiredRole: environment.superAdmin } },
 
 ];
 
