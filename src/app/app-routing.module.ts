@@ -17,6 +17,8 @@ import { RoomFormComponent } from './rooms/room-form/room-form.component';
 import { PatientListComponent } from './patients/patient-list/patient-list.component';
 import { PatientFormComponent } from './patients/patient-form/patient-form.component';
 import { AlertListComponent } from './alerts/alert-list/alert-list.component';
+import { DeviceFormComponent } from './devices/device-form/device-form.component';
+import { DeviceListComponent } from './devices/device-list/device-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -43,7 +45,10 @@ const routes: Routes = [
   { path: "patientAdd", component: PatientFormComponent, canActivate: [AuthGuard], data: { requiredRole: environment.superAdmin } },
   { path: "patientEdit/:id", component: PatientFormComponent, canActivate: [AuthGuard], data: { requiredRole: environment.superAdmin } },
   { path: "alertList", component: AlertListComponent, canActivate: [AuthGuard], data: { requiredRole: environment.user } },
-  { path: "alertList/:patientId", component: AlertListComponent, canActivate: [AuthGuard], data: { requiredRole: environment.user } }
+  { path: "alertList/:patientId", component: AlertListComponent, canActivate: [AuthGuard], data: { requiredRole: environment.user } },
+  { path: "deviceList", component: DeviceListComponent, canActivate: [AuthGuard], data: { requiredRole: environment.superAdmin } },
+  { path: "deviceAdd", component: DeviceFormComponent, canActivate: [AuthGuard], data: { requiredRole: environment.superAdmin } },
+  { path: "deviceEdit/:id", component: DeviceFormComponent, canActivate: [AuthGuard], data: { requiredRole: environment.superAdmin } }
 
 ];
 

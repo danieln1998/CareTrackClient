@@ -50,6 +50,8 @@ import { DeviceEffects } from './devices/device.effects';
 import { AlertReducer } from './alerts/alert.reducer';
 import { AlertEffects } from './alerts/alert.effects';
 import { AlertListComponent } from './alerts/alert-list/alert-list.component';
+import { DeviceListComponent } from './devices/device-list/device-list.component';
+import { DeviceFormComponent } from './devices/device-form/device-form.component';
 
 
 
@@ -70,7 +72,9 @@ import { AlertListComponent } from './alerts/alert-list/alert-list.component';
     RoomFormComponent,
     PatientListComponent,
     PatientFormComponent,
-    AlertListComponent
+    AlertListComponent,
+    DeviceListComponent,
+    DeviceFormComponent
   ],
   imports: [
     BrowserModule,

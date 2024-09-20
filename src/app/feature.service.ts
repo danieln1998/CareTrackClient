@@ -27,7 +27,7 @@ export class FeatureService {
 
   getFeatures(role: string): Observable<string[]> {
     if (role === this.superAdmin) {
-      return this.features$.pipe(map(features => [...features, 'Employee Management', 'Shift Management','Logout']));
+      return this.features$.pipe(map(features => [...features, 'Devices','Employee Management', 'Shift Management','Logout']));
     } else if (role === this.admin) {
       return this.features$.pipe(map(features => [...features, 'Shift Management','Logout']));
     } else if (role === this.user) {
@@ -54,6 +54,8 @@ export class FeatureService {
         return '/patientList';
       case 'Alerts':
         return '/alertList';
+      case 'Devices':
+        return '/deviceList';
       default:
         return '/';
     }
