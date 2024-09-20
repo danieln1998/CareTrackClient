@@ -40,7 +40,7 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>Actions</th>
         <td mat-cell *matCellDef="let patient">
-          <button class="btn btn-sm btn-secondary mx-1" [routerLink]="['/alerts', patient.id]">Alerts</button>
+          <button class="btn btn-sm btn-secondary mx-1" [routerLink]="['/alertList', patient.id]">Alerts</button>
           <ng-container *ngIf="isSuperAdmin">
             <button class="btn btn-sm btn-secondary mx-1" [routerLink]="['/patientEdit', patient.id]">Edit</button>
             <button class="btn btn-sm btn-danger mx-1" (click)="deletePatient(patient.id)">Delete</button>

@@ -1,3 +1,4 @@
+import { AlertState } from "./alert.state";
 import { AuthState } from "./auth.state";
 import { DeviceState } from "./device.state";
 import { EmployeeState } from "./employee.state";
@@ -14,5 +15,6 @@ export interface AppState {
     readonly shift: ShiftState,
     readonly room: RoomState,
     readonly patient: PatientState,
-    readonly device: DeviceState
+    readonly device: DeviceState,
+    readonly alert: AlertState
 }

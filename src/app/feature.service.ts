@@ -13,7 +13,7 @@ export class FeatureService {
   superAdmin: string = environment.superAdmin;
   admin: string = environment.admin;
   user: string = environment.user;
-  features$: Observable<string[]> = of(['Account Settings','My Shifts','Rooms','Patients']);
+  features$: Observable<string[]> = of(['Account Settings','My Shifts','Rooms','Patients','Alerts']);
 
   constructor(private authService: AuthenticationService,private router: Router){}
 
@@ -52,6 +52,8 @@ export class FeatureService {
         return '/roomList';
       case 'Patients':
         return '/patientList';
+      case 'Alerts':
+        return '/alertList';
       default:
         return '/';
     }

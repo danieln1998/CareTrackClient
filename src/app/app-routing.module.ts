@@ -16,6 +16,7 @@ import { RoomListComponent } from './rooms/room-list/room-list.component';
 import { RoomFormComponent } from './rooms/room-form/room-form.component';
 import { PatientListComponent } from './patients/patient-list/patient-list.component';
 import { PatientFormComponent } from './patients/patient-form/patient-form.component';
+import { AlertListComponent } from './alerts/alert-list/alert-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -41,6 +42,8 @@ const routes: Routes = [
   { path: "patientList/:roomId", component: PatientListComponent, canActivate: [AuthGuard], data: { requiredRole: environment.user } },
   { path: "patientAdd", component: PatientFormComponent, canActivate: [AuthGuard], data: { requiredRole: environment.superAdmin } },
   { path: "patientEdit/:id", component: PatientFormComponent, canActivate: [AuthGuard], data: { requiredRole: environment.superAdmin } },
+  { path: "alertList", component: AlertListComponent, canActivate: [AuthGuard], data: { requiredRole: environment.user } },
+  { path: "alertList/:patientId", component: AlertListComponent, canActivate: [AuthGuard], data: { requiredRole: environment.user } }
 
 ];
 

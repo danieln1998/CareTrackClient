@@ -1,0 +1,73 @@
+<div class="container">
+    <h1>Alerts</h1>
+    <div>
+      <small class="text-danger">
+        {{errorMessage$|async}}
+      </small>
+    </div>
+  
+    <div class="row mb-3">
+      <div class="col-md-6 col-lg-4">
+        <label for="dateFilter" class="form-label">Filter by date:</label>
+        <input type="date" id="dateFilter" class="form-control" (change)="onDateInputChange($event)" [value]="selectedDate || ''">
+        <button class="btn btn-secondary mt-2" (click)="clearDateFilter()">Clear date filter</button>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <label for="patientNameFilter" class="form-label">Search by patient name:</label>
+        <input type="text" id="patientNameFilter" class="form-control" (input)="filterAlerts($event)">
+      </div>
+    </div>
+  
+    <table mat-table [dataSource]="filteredAlerts$" class="mat-elevation-z8">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Alert Type</th>
+        <td mat-cell *matCellDef="let alert">{{alert.name}}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="time">
+        <th mat-header-cell *matHeaderCellDef (click)="toggleSortOrder()">
+          Time
+          <span class="sort-icon">{{ isAscending ? '▲' : '▼' }}</span>
+        </th>
+        <td mat-cell *matCellDef="let alert">{{formatDisplayDate(alert.time)}}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="patientName">
+        <th mat-header-cell *matHeaderCellDef>Patient Name</th>
+        <td mat-cell *matCellDef="let alert">{{alert.patient.name}}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="roomNumber">
+        <th mat-header-cell *matHeaderCellDef>Room Number</th>
+        <td mat-cell *matCellDef="let alert">{{alert.patient.room?.roomNumber}}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="deviceNumber">
+        <th mat-header-cell *matHeaderCellDef>Device Number</th>
+        <td mat-cell *matCellDef="let alert">{{alert.patient.device?.deviceNumber}}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let alert">
+          <button class="btn btn-sm btn-danger mx-1" (click)="deleteAlert(alert.id)">Delete</button>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <div class="mt-4 d-flex justify-content-between align-items-start">
+      <div>
+        <button class="btn btn-secondary me-2" [disabled]="pageNumber === 1" (click)="previousPage()">Previous</button>
+        <button class="btn btn-secondary" [disabled]="!(hasMoreAlerts$ | async)" (click)="nextPage()">Next</button>
+      </div>
+      <div class="d-flex flex-column align-items-end">
+        <select id="pageSize" class="form-select mb-2" [(ngModel)]="pageSize" (change)="changePageSize(pageSize)">
+          <option *ngFor="let size of pageSizeOptions" [value]="size">{{ size }}</option>
+        </select>
+        <label for="pageSize">Alerts per page</label>
+      </div>
+    </div>
+  </div>
