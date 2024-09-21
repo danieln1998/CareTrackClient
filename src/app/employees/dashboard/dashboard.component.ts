@@ -47,6 +47,22 @@ export class DashboardComponent implements OnInit,OnDestroy {
     this.featureService.navigateToFeature(feature);
   }
 
+  getFeatureIcon(feature: string): string {
+    const iconMap: { [key: string]: string } = {
+      'Account Settings': 'settings',
+      'My Shifts': 'event',
+      'Rooms': 'meeting_room',
+      'Patients': 'personal_injury',
+      'Alerts': 'notifications',
+      'Devices': 'devices',
+      'Employee Management': 'people',
+      'Shift Management': 'schedule',
+      'Dashboard': 'dashboard',
+      'Logout': 'exit_to_app'
+    };
+    return iconMap[feature] || 'star'; 
+  }
+
 }
   
 
