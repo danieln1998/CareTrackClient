@@ -3,6 +3,7 @@ import { FeatureService } from 'src/app/feature.service';
 import { select, Store } from '@ngrx/store';
 import { AppState } from './app.state';
 import { BehaviorSubject, filter, Observable } from 'rxjs';
+import { AlertPollingService } from './alerts/alert-polling.service';
 
 
 
@@ -17,7 +18,7 @@ export class AppComponent implements OnInit {
   features$ = new BehaviorSubject<string[]>([]);
   isLoginRoute$: Observable<boolean>;
 
-  constructor(private featureService: FeatureService,private store: Store<AppState>){
+  constructor(private featureService: FeatureService,private store: Store<AppState>,private alertPollingService: AlertPollingService){
     (window as any).store = this.store;
     this.isLoginRoute$ = this.store.pipe(select(state => state.authentication.isLoginRoute));
     
@@ -52,7 +53,8 @@ export class AppComponent implements OnInit {
 
   })
 
-   
+  this.alertPollingService.startPolling();
+  
   }
 
 

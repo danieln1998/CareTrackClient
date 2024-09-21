@@ -27,3 +27,8 @@ export const DeleteAlertSuccess = createAction(
   '[Alert] Delete Alert Success',
   props<{ alertId: string }>()
 );
+
+export const AddNewAlert = createAction(
+  '[Alert] Add New Alert',
+  props<{ alert: Alert }>()
+);

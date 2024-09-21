@@ -17,5 +17,11 @@ export const AlertReducer = createReducer(
   on(alertActions.DeleteAlertSuccess, (state, { alertId }) => ({
     ...state,
     alerts: state.alerts.filter(alert => alert.id !== alertId)
+  })),
+
+  on(alertActions.AddNewAlert, (state, { alert }) => ({
+    ...state,
+    alerts: [alert, ...state.alerts]
   }))
+  
 );

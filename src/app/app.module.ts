@@ -52,7 +52,7 @@ import { AlertEffects } from './alerts/alert.effects';
 import { AlertListComponent } from './alerts/alert-list/alert-list.component';
 import { DeviceListComponent } from './devices/device-list/device-list.component';
 import { DeviceFormComponent } from './devices/device-form/device-form.component';
-
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -96,7 +96,18 @@ import { DeviceFormComponent } from './devices/device-form/device-form.component
     MatIconModule,
     MatDividerModule,
     MatButtonModule,
-    MatListModule
+    MatListModule,
+    ToastrModule.forRoot({
+      timeOut: 0,
+      extendedTimeOut: 0,
+      positionClass: 'toast-bottom-left',
+      preventDuplicates: true,
+      closeButton: true,
+      enableHtml: true,
+      maxOpened: 0,
+      autoDismiss: false,
+      tapToDismiss: false
+    })
     
   ],
   providers: [DatePipe],
